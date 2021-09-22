@@ -3,12 +3,14 @@
 
         " UI
         Plug 'bluz71/vim-nightfly-guicolors'
+        Plug 'altercation/vim-colors-solarized'
+        Plug 'joshdick/onedark.vim'
+        Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
         Plug 'hoob3rt/lualine.nvim'
         Plug 'kyazdani42/nvim-web-devicons'
         Plug 'cespare/vim-toml'
         Plug 'lewis6991/gitsigns.nvim'
 		Plug 'airblade/vim-rooter'
-        Plug 'mcchrish/nnn.vim'
 
         " Go Lang
         Plug 'fatih/vim-go'
@@ -32,28 +34,41 @@
         Plug 'nvim-lua/plenary.nvim'
         Plug 'nvim-telescope/telescope.nvim'
         Plug 'akinsho/nvim-bufferline.lua'
+        Plug 'mcchrish/nnn.vim'
 
         " Syntactic Language Support
         Plug 'neoclide/coc.nvim', {'branch': 'release'}
         Plug 'dense-analysis/ale'
         call plug#end()
 
-        " start galaxyline
-        " lua require('eviline')
-        let g:lualine = {
-                    \'options' : {
-                    \    'theme' : 'nightfly',
-                    \},
-                    \'extensions' : ['fzf', 'fugitive']
-                    \}
         lua require('lualine').setup()
         lua require('bufferline').setup()
         lua require('gitsigns').setup()
+        
+
 " }}}
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+    custom_captures = {
+      -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
+      ["foo.bar"] = "Identifier",
+    },
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+EOF
 
 
 set termguicolors
-colorscheme nightfly
+"   set background=dark
+colorscheme onedark
 set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
 set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
 set virtualedit=onemore             " Allow for cursor beyond last character
@@ -498,6 +513,7 @@ imap kj <Esc>
         nnoremap <leader>n NnnPicker
     " }}}
     " Vim-Rooter {{{
+        let g:rooter_manual_only = 1
         let g:rooter_targets = '*.go'
 
     " }}}
@@ -551,19 +567,11 @@ imap kj <Esc>
         let g:go_test_show_name = 1
 
         " gometalinter configuration
+        let g:go_metalinter_autosave_enabled = 1
         let g:go_metalinter_command = ""
         let g:go_metalinter_deadline = "5s"
         let g:go_metalinter_enabled = [
-            \ 'staticcheck',
-            \ 'deadcode',
-            \ 'gas',
-            \ 'goconst',
-            \ 'gocyclo',
-            \ 'golint',
-            \ 'gosimple',
-            \ 'ineffassign',
-            \ 'vet',
-            \ 'vetshadow'
+            \ 'golangci-lint',
         \]
         let g:go_debug_windows = {
               \ 'vars':       'rightbelow 60vnew',
