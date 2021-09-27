@@ -28,6 +28,7 @@
 
         Plug 'godlygeek/tabular'
         Plug 'tpope/vim-fugitive'
+        Plug 'junegunn/gv.vim'
 
         " File navigation
         Plug 'nvim-lua/popup.nvim'
@@ -196,6 +197,7 @@ imap kj <Esc>
         autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql,coffee,ruby autocmd BufWritePre <buffer> call StripTrailingWhitespace()
         autocmd FileType haskell,puppet,ruby,yml,javascript setlocal expandtab shiftwidth=2 softtabstop=2
         autocmd FileType tex set wrap spell
+        autocmd FileType markdown set wrap textwidth=80
 " }}}
 " Key (re)Mappings {{{
         " Search results centered please
@@ -598,11 +600,13 @@ imap kj <Esc>
         au FileType go nmap <leader>ct <Plug>(go-coverage-toogle)
         au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
         au FileType go nmap <silent><Leader>dt :GoDebugTestFunc<CR>
-		au FileTYpe go nmap <leader>ds <Plug>(go-debug-step)
-		au FileTYpe go nmap <leader>dn <Plug>(go-debug-next)
-		au FileTYpe go nmap <leader>db <Plug>(go-debug-breakpoint)
-		au FileTYpe go nmap <leader>do <Plug>(go-debug-stepout)
-		au FileTYpe go nmap <leader>dc <Plug>(go-debug-continue)
+		au FileType go nmap <leader>ds <Plug>(go-debug-step)
+		au FileType go nmap <leader>dq <Plug>(go-debug-stop)
+		au FileType go nmap <leader>dn <Plug>(go-debug-next)
+		au FileType go nmap <leader>db <Plug>(go-debug-breakpoint)
+		au FileType go nmap <leader>do <Plug>(go-debug-stepout)
+		au FileType go nmap <leader>dc <Plug>(go-debug-continue)
+		au FileType go nmap <F8> <Plug>(go-debug-continue)
 
         let g:delve_backend = "native"
     " }}}
