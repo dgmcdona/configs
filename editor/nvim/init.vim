@@ -11,6 +11,8 @@
         Plug 'cespare/vim-toml'
         Plug 'lewis6991/gitsigns.nvim'
 		Plug 'airblade/vim-rooter'
+        Plug 'rebelot/kanagawa.nvim'
+        Plug 'voldikss/vim-floaterm'
 
         " Go Lang
         Plug 'fatih/vim-go'
@@ -69,7 +71,7 @@ EOF
 
 set termguicolors
 "   set background=dark
-colorscheme onedark
+colorscheme kanagawa
 set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
 set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
 set virtualedit=onemore             " Allow for cursor beyond last character
@@ -511,6 +513,10 @@ imap kj <Esc>
 " }}}
 
 " Plugins {{{
+    " floaterm {{{
+        nnoremap <leader>. :FloatermToggle<CR>
+        tnoremap <leader>. <C-\><C-n>:FloatermToggle<CR>
+    " }}}
     " nnn {{{
         nnoremap <leader>n NnnPicker
     " }}}
